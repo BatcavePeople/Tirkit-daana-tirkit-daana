@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>You are cordially, mysteriously invited</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;600;800&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wine: #3d0f20;
+    --wine-deep: #26091a;
+    --tomato: #d8402f;
+    --cloth: #f6ecd9;
+    --amber: #f4b860;
+    --night: #0d0820;
+    --neon: #ff3d9a;
+    --violet: #7b5cff;
+    --ink: #f6ecd9;
+    --serif: "Young Serif", Georgia, "Times New Roman", serif;
+    --sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --type: "Special Elite", "Courier New", monospace;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  /* This page is a deliberately dark, candle-to-nightclub design in both themes */
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #f6ecd9; } }
+  :root[data-theme="dark"] { --ink: #f6ecd9; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--wine-deep); color: var(--ink);
+    font-family: var(--sans); font-size: 18px; line-height: 1.55;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.05; margin: 0; }
+  p { margin: 0 0 1em; max-width: 46ch; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+
+  /* ---------- Seal ---------- */
+  #seal {
+    position: fixed; inset: 0; z-index: 50; display: grid; place-items: center;
+    background: radial-gradient(circle at 50% 40%, #5a1a30, var(--wine-deep) 70%);
+    text-align: center; padding: 24px;
+    transition: transform .9s cubic-bezier(.7,0,.2,1), opacity .9s;
+  }
+  #seal.open { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+  .seal-card { max-width: 420px; }
+  .stamp {
+    font-family: var(--type); color: var(--tomato); border: 3px solid var(--tomato);
+    display: inline-block; padding: 4px 14px; transform: rotate(-4deg); letter-spacing: .12em;
+    margin-bottom: 28px; font-size: 20px;
+  }
+  .wax {
+    width: 132px; height: 132px; border-radius: 50%; border: 0; margin: 0 auto 26px; display: block;
+    background: radial-gradient(circle at 35% 30%, #f0604a, var(--tomato) 45%, #8f1d12);
+    box-shadow: 0 10px 30px rgba(0,0,0,.5), inset 0 -6px 12px rgba(0,0,0,.3);
+    font-family: var(--serif); font-size: 46px; color: #ffd9ce; text-shadow: 0 2px 2px rgba(0,0,0,.35);
+    animation: throb 2.2s ease-in-out infinite;
+  }
+  .wax:active { transform: scale(.94); }
+  @keyframes throb { 50% { transform: scale(1.05); } }
+  .seal-card p { margin: 0 auto; font-family: var(--type); opacity: .85; }
+
+  /* ---------- Hero / Act I ---------- */
+  .act1 {
+    position: relative;
+    background:
+      linear-gradient(180deg, rgba(38,9,26,0) 60%, var(--wine-deep) 100%),
+      conic-gradient(from 90deg at 50% 50%, #4b1327 25%, #5c182f 0 50%, #4b1327 0 75%, #5c182f 0) 0 0 / 56px 56px;
+    padding: 12vh 22px 10vh;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .hero h1 { font-size: clamp(2.8rem, 11vw, 6rem); }
+  .hero .sub { font-family: var(--type); font-size: 1.05rem; margin-top: 18px; color: var(--amber); }
+  .clock {
+    display: flex; gap: 10px; margin: 34px 0 8px; flex-wrap: wrap;
+  }
+  .clock div {
+    background: var(--cloth); color: var(--wine-deep); border-radius: 6px; padding: 10px 14px; min-width: 78px;
+    text-align: center; transform: rotate(-1.5deg);
+  }
+  .clock div:nth-child(even) { transform: rotate(1.2deg); }
+  .clock b { display: block; font-family: var(--serif); font-size: 2rem; font-weight: 400; line-height: 1; }
+  .clock span { font-size: .8rem; }
+  .small { font-size: .95rem; opacity: .8; }
+
+  section.block { padding: 8vh 22px; }
+  .card {
+    background: var(--cloth); color: #2a1018; border-radius: 4px; padding: 28px 26px 22px;
+    position: relative; box-shadow: 0 18px 40px rgba(0,0,0,.35);
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 8px; border: 2px dashed rgba(216,64,47,.55); border-radius: 2px; pointer-events: none;
+  }
+  .card h2 { font-size: clamp(1.9rem, 6vw, 2.6rem); margin-bottom: 14px; color: var(--tomato); }
+  .card p { font-size: 1.15rem; }
+  .card .note { font-family: var(--type); font-size: .9rem; opacity: .75; margin: 0; }
+
+  /* redaction bars */
+  .redact {
+    border: 0; padding: 0 .25em; margin: 0 1px; border-radius: 2px; font: inherit; line-height: 1.1;
+    background: #1a0a12; color: transparent; transition: background .35s, color .35s; vertical-align: baseline;
+    min-width: 4.2em;
+  }
+  .redact[aria-pressed="true"] { background: rgba(244,184,96,.55); color: #2a1018; }
+
+  /* ---------- Gorlami ---------- */
+  .lingua { background: var(--wine-deep); }
+  .lingua h2 { font-size: clamp(2rem, 7vw, 3.2rem); margin-bottom: 14px; }
+  .booth {
+    margin-top: 26px; border: 2px solid var(--amber); border-radius: 6px; padding: 22px; text-align: center;
+    background: rgba(0,0,0,.25);
+  }
+  .subtitle {
+    font-family: var(--sans); font-weight: 800; font-size: clamp(1.7rem, 8vw, 3rem); color: #fff;
+    text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+    min-height: 3.4em; display: grid; place-items: center; margin-bottom: 16px; padding: 6px;
+    background: linear-gradient(180deg, #3a2a1c, #1e140d); border-radius: 4px;
+  }
+  .subtitle.pop { animation: pop .45s; }
+  @keyframes pop { 0% { transform: scale(.85) rotate(-2deg); } 60% { transform: scale(1.06) rotate(1deg); } 100% { transform: none; } }
+  .btn {
+    background: var(--amber); color: #2a1018; border: 0; border-radius: 999px; padding: 12px 24px; font-weight: 800;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 2px solid currentColor; }
+  .meter { margin-top: 14px; font-family: var(--type); font-size: .9rem; opacity: .8; }
+
+
+  /* ---------- Intermission ---------- */
+  .inter { background: linear-gradient(180deg, var(--wine-deep), #170a24); text-align: center; padding: 9vh 22px; }
+  .inter .reel {
+    display: inline-block; font-family: var(--type); letter-spacing: .3em; font-size: 1.6rem; color: var(--amber);
+    border-top: 2px solid var(--amber); border-bottom: 2px solid var(--amber); padding: 8px 18px; margin-bottom: 18px;
+  }
+  .inter p { margin-left: auto; margin-right: auto; }
+
+  /* ---------- Act II ---------- */
+  .act2 {
+    background: linear-gradient(180deg, var(--wine-deep) 0%, #1b0b30 35%, var(--night) 100%);
+    padding-top: 14vh;
+  }
+  .act2 h2 { font-size: clamp(2.2rem, 8vw, 3.8rem); margin-bottom: 14px; }
+  .club {
+    margin-top: 26px; padding: 26px; border-radius: 6px; position: relative; overflow: hidden;
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,61,154,.5);
+    box-shadow: 0 0 34px rgba(255,61,154,.18), inset 0 0 30px rgba(123,92,255,.12);
+  }
+  .club p { font-size: 1.15rem; }
+  .club .redact { background: #000; }
+  .club .redact[aria-pressed="true"] { background: var(--neon); color: #12061f; }
+  body.drop { animation: strobe .5s steps(2) 6; }
+  @keyframes strobe { 0% { filter: none; } 50% { filter: hue-rotate(90deg) saturate(1.8) brightness(1.15); } }
+  .btn.neon { background: var(--neon); color: #12061f; box-shadow: 0 0 22px rgba(255,61,154,.6); }
+
+  /* ---------- RSVP ---------- */
+  .rsvp { background: var(--night); text-align: center; padding-bottom: 16vh; }
+  .rsvp h2 { font-size: clamp(2.2rem, 8vw, 3.6rem); margin: 0 auto 14px; }
+  .rsvp p { margin-left: auto; margin-right: auto; }
+  .choices { position: relative; height: 200px; margin: 20px auto 0; max-width: 520px; }
+  .choices .yes {
+    position: absolute; left: 50%; top: 10px; transform: translateX(-50%);
+    background: var(--neon); color: #12061f; border: 0; border-radius: 999px; padding: 16px 34px;
+    font-weight: 800; font-size: 1.15rem; box-shadow: 0 0 26px rgba(255,61,154,.55);
+  }
+  .choices .no {
+    position: absolute; left: 50%; top: 110px; transform: translateX(-50%);
+    background: transparent; border: 2px solid rgba(246,236,217,.5); border-radius: 999px; padding: 10px 22px;
+    transition: left .25s, top .25s; white-space: nowrap;
+  }
+  #done { display: none; }
+  #done.show { display: block; animation: pop .6s; }
+  #done h3 { font-size: clamp(2rem, 8vw, 3.2rem); color: var(--neon); margin-bottom: 12px; }
+  #done .ticket {
+    font-family: var(--type); border: 2px dashed var(--amber); border-radius: 6px; padding: 16px; margin: 20px auto; max-width: 420px; color: var(--amber);
+    text-align: left;
+  }
+  #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 40; }
+  footer { font-family: var(--type); font-size: .85rem; opacity: .6; padding: 0 22px 8vh; text-align: center; background: var(--night); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+  <audio id="partyMusic" src="music.mp3" preload="auto"></audio>
+
+<!-- Sealed cover -->
+<div id="seal" role="dialog" aria-label="Sealed invitation">
+  <div class="seal-card">
+    <div class="stamp">EYES ONLY</div>
+    <button class="wax" id="breakSeal" aria-label="Break the seal to open the invitation">AV</button>
+    <p>Classified birthday intelligence inside.<br>Tap the seal. No one is watching. Probably.</p>
+  </div>
+</div>
+
+<main>
+  <!-- ACT I -->
+  <header class="act1">
+    <div class="wrap hero">
+      <h1 id="heroTitle">Hello there, <span id="herName">Cookie</span>.</h1>
+      <p class="sub">You are hereby ordered to clear your afternoon and your night of the 5th of the 10th month, for a very important mission.</p>
+      <div class="clock" aria-live="off" id="clock">
+        <div><b id="cd">--</b><span>days</span></div>
+        <div><b id="ch">--</b><span>hours</span></div>
+        <div><b id="cm">--</b><span>minutes</span></div>
+        <div><b id="cs">--</b><span>seconds</span></div>
+      </div>
+      <p class="small" id="whenLine">Details on the day, and only the day, below.</p>
+    </div>
+  </header>
+
+  <section class="block act1" style="padding-top:0">
+    <div class="wrap">
+      <div class="card">
+        <h2>First, a late lunch.</h2>
+        <p>
+          Don't skip the breakfast. Somewhere there is a table waiting, and the menu is mostly
+          <button class="redact" data-word="edible" aria-pressed="false" aria-label="Hidden word, tap to reveal">▮▮▮▮▮▮</button>.
+          The person beside you will call you
+          <button class="redact" data-word="Baby girl" aria-pressed="false" aria-label="Hidden word, tap to reveal">▮▮▮▮▮</button>
+          just to capture another moment of excitement. And when he does, you must
+          <button class="redact" data-word="pose" aria-pressed="false" aria-label="Hidden word, tap to reveal">▮▮▮▮▮▮</button>
+          for the moment.
+        <p class="note">Tap the black bars. They were redacted for a reason, but I trust you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Language prep -->
+  <section class="block lingua">
+    <div class="wrap">
+      <h2>Blend in. Speak the language.</h2>
+      <p>You may be asked to order confidently. Rehearse with our approved phrasebook. Do not overthink the accent.</p>
+      <div class="booth">
+        <div class="subtitle" id="subtitle" aria-live="polite">Ready when you are.</div>
+        <button class="btn" id="speak">Say something Italian</button>
+        <div class="meter" id="meter">Believability: 0%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intermission -->
+  <section class="inter">
+    <div class="wrap">
+      <div class="reel">INTERMISSION</div>
+      <p>The program pauses for one unavoidable online work meeting, roughly 30 minutes. Uffff. Hot vibrance, just getting hotter 🥵.</p>
+    </div>
+  </section>
+
+  <!-- ACT II -->
+  <section class="block act2">
+    <div class="wrap">
+      <h2>Then, we go out.</h2>
+      <p>Wear shoes that can survive dessert <em>and</em> a very long night. Yes, both. Figure it out.</p>
+      <div class="club">
+        <p>
+          As the sun sets, we end up somewhere the
+          <button class="redact" data-word="bass" aria-pressed="false" aria-label="Hidden word, tap to reveal">▮▮▮▮▮</button>
+          is louder than our thoughts and the floor
+          <button class="redact" data-word="glows" aria-pressed="false" aria-label="Hidden word, tap to reveal">▮▮▮▮▮▮</button>.
+        </p>
+        <p style="margin-bottom:20px">Screaming is optional. Fun is not.</p>
+        <button class="btn neon" id="drop">Drop it</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="block rsvp">
+    <div class="wrap">
+      <div id="ask">
+        <h2>So. Are you in?</h2>
+        <p>The exact place and time get revealed to confirmed guests only.</p>
+        <div class="choices" id="choices">
+          <button class="yes" id="yes">Yes, obviously</button>
+          <button class="no" id="no">No</button>
+        </div>
+      </div>
+      <div id="done">
+        <h3>That's a bingo!</h3>
+        <p>Confirmed. Wear something you feel unstoppable in.</p>
+        <div class="ticket">
+          ADMIT ONE BIRTHDAY GIRL<br>
+          Mission I &nbsp;&nbsp;&nbsp;: late lunch<br>
+          Side Quest &nbsp;&nbsp;&nbsp;: 30 min (online meeting)<br>
+          Mission II &nbsp;&nbsp;: shenanigans<br>
+          WHERE &nbsp;: <span id="whereLine">a surprise, revealed soon</span><br>
+          WHEN &nbsp;&nbsp;: <span id="whenTicket">soon</span>
+        </div>
+        <a id="textBack" class="btn" style="display:none;text-decoration:none;display:none" href="#">Text me your answer</a>
+        <p class="small" style="margin-top:20px">Screenshot this ticket. Tell no one.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>Disclaimer: But Vasmi can dance saala!.</footer>
+<canvas id="confetti"></canvas>
+
+<script>
+/* ================= EDIT THESE ================= */
+const CONFIG = {
+  herName: "Cookie",                          // her name or nickname
+  partyDate: "2026-10-05T15:00:00+05:30",    // when the mission starts (ISO)
+  whenText: "Monday, 5 October, 3:00 PM", // shown on the ticket after RSVP
+  whereText: "Location drops 2 hours before", // keep it vague, or reveal it
+  yourPhone: "+916309292428"                              // e.g. "+919876543210" to enable the "Text me" button
+};
+/* ============================================= */
+
+document.getElementById("herName").textContent = CONFIG.herName;
+document.getElementById("whenTicket").textContent = CONFIG.whenText;
+document.getElementById("whereLine").textContent = CONFIG.whereText;
+
+/* Seal */
+const seal = document.getElementById("seal");
+document.getElementById("breakSeal").addEventListener("click", () => {
+  seal.classList.add("open");
+  setTimeout(() => { seal.style.display = "none"; }, 1000);
+});
+
+/* Countdown */
+const target = new Date(CONFIG.partyDate).getTime();
+const els = { d: cd, h: ch, m: cm, s: cs };
+function tick() {
+  let diff = Math.max(0, target - Date.now());
+  const d = Math.floor(diff / 864e5); diff -= d * 864e5;
+  const h = Math.floor(diff / 36e5); diff -= h * 36e5;
+  const m = Math.floor(diff / 6e4); diff -= m * 6e4;
+  const s = Math.floor(diff / 1e3);
+  els.d.textContent = d; els.h.textContent = String(h).padStart(2, "0");
+  els.m.textContent = String(m).padStart(2, "0"); els.s.textContent = String(s).padStart(2, "0");
+}
+tick(); setInterval(tick, 1000);
+
+/* Redaction bars */
+document.querySelectorAll(".redact").forEach(btn => {
+  const hidden = btn.textContent;
+  btn.addEventListener("click", () => {
+    const on = btn.getAttribute("aria-pressed") === "true";
+    btn.setAttribute("aria-pressed", String(!on));
+    btn.textContent = on ? hidden : btn.dataset.word;
+  });
+});
+
+/* Gorlami phrasebook */
+const lines = [
+  "Gorlami!",
+  "Bon giorno.",
+  "Arrivederci.",
+  "Uno spaghetti, per favore.",
+  "Gorlami! Gorlami!",
+  "Mi chiamo... Enzo Girolami.",
+  "Un tavolo per due. Con molta confidenza.",
+  "Ciao ciao, Cookie."
+];
+let li = 0, bel = 0;
+const sub = document.getElementById("subtitle"), meter = document.getElementById("meter");
+document.getElementById("speak").addEventListener("click", () => {
+  sub.textContent = lines[li % lines.length]; li++;
+  sub.classList.remove("pop"); void sub.offsetWidth; sub.classList.add("pop");
+  bel = Math.min(100, bel + Math.floor(Math.random() * 9) + 3);
+  meter.textContent = "Believability: " + bel + "%" + (bel >= 40 ? " (nobody suspects a thing)" : "");
+});
+
+
+/* Drop it + music */
+const partyMusic = document.getElementById("partyMusic");
+
+document.getElementById("drop").addEventListener("click", () => {
+  // Trigger the visual effect
+  document.body.classList.remove("drop");
+  void document.body.offsetWidth;
+  document.body.classList.add("drop");
+
+  // Start Pappu Can't Dance Saala from the beginning
+  partyMusic.currentTime = 0;
+  partyMusic.play().catch(() => {
+    // Ignore playback errors caused by browser/device restrictions
+  });
+
+  setTimeout(() => {
+    document.body.classList.remove("drop");
+  }, 3200);
+});
+
+/* Runaway No */
+const no = document.getElementById("no"), box = document.getElementById("choices");
+const nolines = ["No", "Are you sure?", "Really?", "Be serious", "Nope, still yes", "Stop it"];
+let dodges = 0;
+function dodge(e) {
+  if (e && e.cancelable) e.preventDefault();
+  dodges++;
+  no.textContent = nolines[Math.min(dodges, nolines.length - 1)];
+  const bw = box.clientWidth, nw = no.offsetWidth;
+  const x = Math.random() * (bw - nw) + nw / 2;
+  const y = Math.random() * (box.clientHeight - 50);
+  no.style.left = x + "px"; no.style.top = y + "px";
+}
+no.addEventListener("pointerenter", dodge);
+no.addEventListener("touchstart", dodge, { passive: false });
+no.addEventListener("click", dodge);
+
+/* Yes */
+document.getElementById("yes").addEventListener("click", () => {
+  document.getElementById("ask").style.display = "none";
+  document.getElementById("done").classList.add("show");
+  if (CONFIG.yourPhone) {
+    const a = document.getElementById("textBack");
+    a.style.display = "inline-block";
+    a.href = "sms:" + CONFIG.yourPhone + "?&body=" + encodeURIComponent("That's a bingo. I'm in.");
+  }
+  boom();
+});
+
+/* Confetti */
+const cv = document.getElementById("confetti"), cx = cv.getContext("2d");
+function size() { cv.width = innerWidth; cv.height = innerHeight; }
+size(); addEventListener("resize", size);
+function boom() {
+  const cols = ["#ff3d9a", "#f4b860", "#7b5cff", "#d8402f", "#f6ecd9"];
+  const ps = Array.from({ length: 160 }, () => ({
+    x: innerWidth / 2, y: innerHeight * 0.6,
+    vx: (Math.random() - .5) * 16, vy: -Math.random() * 16 - 4,
+    r: Math.random() * 6 + 3, c: cols[Math.floor(Math.random() * cols.length)], a: 1, rot: Math.random() * 6
+  }));
+  (function frame() {
+    cx.clearRect(0, 0, cv.width, cv.height);
+    let alive = false;
+    ps.forEach(p => {
+      p.vy += .35; p.x += p.vx; p.y += p.vy; p.a -= .008; p.rot += .15;
+      if (p.a > 0) {
+        alive = true; cx.globalAlpha = p.a; cx.fillStyle = p.c;
+        cx.save(); cx.translate(p.x, p.y); cx.rotate(p.rot); cx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r); cx.restore();
+      }
+    });
+    if (alive) requestAnimationFrame(frame); else cx.clearRect(0, 0, cv.width, cv.height);
+  })();
+}
+</script>
+</body>
+</html>
